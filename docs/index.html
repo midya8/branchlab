@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="A finite CTL model-checking workbench. Always possible is not inevitable. Inspect all subformula truth sets, least/greatest fixed points and branching evidence."
+    />
+    <title>BranchLab | Always possible is not inevitable</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <a href="https://github.com/midya8" class="brand"
+          >MIDYA / FORMAL AI SYSTEMS</a
+        ><span class="tag">BRANCHLAB 0.1 · FINITE CTL</span>
+      </header>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">POSSIBILITY ≠ INEVITABILITY</p>
+          <h1>Every branch.<br />A different promise.</h1>
+          <p class="lead">
+            A goal can remain reachable forever without ever being reached.
+            Inspect exactly what a branching-time claim says, and what its
+            evidence actually proves.
+          </p>
+        </div>
+        <aside class="hero-note">
+          <span>THE DEFAULT CONTRAST</span><code>AG EF p</code>
+          <p>At every reachable state,<br />some future can reach p.</p>
+          <code>AF p</code>
+          <p>Every future eventually reaches p.</p>
+          <b id="contrast">One holds at the start. The other does not.</b>
+        </aside>
+      </section>
+      <section class="workbench">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">01 / SUPPLIED MODEL</p>
+            <h2>Choose the claim. Keep the paths honest.</h2>
+          </div>
+          <span class="local">LOCAL COMPUTATION / NO API</span>
+        </div>
+        <label for="control">Thought experiment</label
+        ><select id="control"></select>
+        <p id="why" class="muted"></p>
+        <div class="input-grid">
+          <div>
+            <div
+              id="graph"
+              class="graph"
+              aria-label="Explicit Kripke graph"
+            ></div>
+            <p class="small muted">
+              Arrows are possible transitions, not actions or probabilities. All
+              supplied states are checked. A self-loop is a real infinite path,
+              not a fairness promise.
+            </p>
+            <div id="model-table" class="scroll"></div>
+          </div>
+          <div>
+            <label for="input">Editable JSON model + CTL AST</label
+            ><textarea id="input" spellcheck="false"></textarea>
+            <div class="buttons">
+              <button id="run">Check supplied model</button
+              ><button id="download" class="secondary">
+                Download full certificate
+              </button>
+            </div>
+            <p id="status" role="status"></p>
+          </div>
+        </div>
+        <div id="results" class="results"></div>
+      </section>
+      <section class="certificate">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">02 / SUBFORMULA CERTIFICATE</p>
+            <h2>Truth is a set of states.</h2>
+          </div>
+          <span class="tag">LEAST ≠ ANY FIXED POINT ≠ GREATEST</span>
+        </div>
+        <p class="muted">
+          Nested path quantifiers restart at each state. Select any unique
+          subformula to inspect its own truth set, transition obligations and
+          complete finite fixed-point atlas.
+        </p>
+        <label for="subformula">Subformula</label
+        ><select id="subformula"></select>
+        <div id="sub-summary"></div>
+        <div class="selectors">
+          <div>
+            <label for="state">Start state for example</label
+            ><select id="state"></select>
+          </div>
+          <div>
+            <label for="round">Synchronous fixed-point round</label
+            ><select id="round"></select>
+          </div>
+        </div>
+        <div class="evidence-grid">
+          <article>
+            <h3>Example path or branching obligation</h3>
+            <div id="example"></div>
+          </article>
+          <article>
+            <h3>Fixed-point step</h3>
+            <div id="round-summary"></div>
+          </article>
+        </div>
+        <div id="state-checks" class="scroll"></div>
+        <div id="round-checks" class="scroll"></div>
+        <details id="atlas-detail">
+          <summary>
+            Complete subset atlas: every candidate and its image
+          </summary>
+          <p class="small muted">
+            For a least fixed point, truth is the intersection of all pre-fixed
+            sets (F(Z) ⊆ Z). For a greatest fixed point, it is the union of all
+            post-fixed sets (Z ⊆ F(Z)). Checking only F(Z) = Z is not enough.
+            This table enumerates all 2ⁿ candidates.
+          </p>
+          <div id="atlas" class="scroll"></div>
+        </details>
+      </section>
+      <section class="method">
+        <div>
+          <p class="eyebrow">03 / MEANING & LIMITS</p>
+          <h2>Small model.<br />Complete obligations.</h2>
+          <p>
+            This is classical explicit CTL model checking, built as an
+            inspectable formal-methods workbench for AI systems reasoning. It
+            does not infer a system model or verify a real agent.
+          </p>
+          <a href="https://github.com/midya8/branchlab/blob/main/METHOD.md"
+            >Read the method, proof limits and sources ↗</a
+          >
+        </div>
+        <ul id="limits"></ul>
+      </section>
+      <footer>
+        <a href="https://github.com/midya8/branchlab">Source + native CLI ↗</a
+        ><span
+          >Python standard library runtime · Browser JavaScript · Independent
+          subset-extremum checker</span
+        >
+      </footer>
+    </main>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
