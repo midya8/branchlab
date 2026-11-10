@@ -1,0 +1,54 @@
+{
+  "atoms": [
+    "p",
+    "q"
+  ],
+  "states": [
+    {
+      "name": "s0",
+      "labels": [],
+      "next": [
+        "s0",
+        "s1"
+      ]
+    },
+    {
+      "name": "s1",
+      "labels": [
+        "p"
+      ],
+      "next": [
+        "s1"
+      ]
+    }
+  ],
+  "formulas": [
+    {
+      "op": "AG",
+      "arg": {
+        "op": "EF",
+        "arg": {
+          "op": "atom",
+          "name": "p"
+        }
+      }
+    },
+    {
+      "op": "AF",
+      "arg": {
+        "op": "atom",
+        "name": "p"
+      }
+    },
+    {
+      "op": "EG",
+      "arg": {
+        "op": "not",
+        "arg": {
+          "op": "atom",
+          "name": "p"
+        }
+      }
+    }
+  ]
+}
