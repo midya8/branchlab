@@ -1,0 +1,655 @@
+[
+  {
+    "id": "always-possible",
+    "title": "Always possible is not inevitable",
+    "why": "The waiting self-loop can postpone p forever, yet p remains reachable at every visited state. AG EF p holds at s0 while AF p does not. No fairness assumption removes the waiting path.",
+    "input": {
+      "atoms": ["p", "q"],
+      "states": [
+        {
+          "name": "s0",
+          "labels": [],
+          "next": ["s0", "s1"]
+        },
+        {
+          "name": "s1",
+          "labels": ["p"],
+          "next": ["s1"]
+        }
+      ],
+      "formulas": [
+        {
+          "op": "AG",
+          "arg": {
+            "op": "EF",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          }
+        },
+        {
+          "op": "AF",
+          "arg": {
+            "op": "atom",
+            "name": "p"
+          }
+        },
+        {
+          "op": "EG",
+          "arg": {
+            "op": "not",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "separate-branches",
+    "title": "Two witnesses need not be one witness",
+    "why": "EX p and EX q can both hold using different successors, while EX (p and q) fails. The two next-step claims do not share an existential witness.",
+    "input": {
+      "atoms": ["p", "q"],
+      "states": [
+        {
+          "name": "s0",
+          "labels": [],
+          "next": ["s1", "s2"]
+        },
+        {
+          "name": "s1",
+          "labels": ["p"],
+          "next": ["s1"]
+        },
+        {
+          "name": "s2",
+          "labels": ["q"],
+          "next": ["s2"]
+        }
+      ],
+      "formulas": [
+        {
+          "op": "and",
+          "left": {
+            "op": "EX",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          "right": {
+            "op": "EX",
+            "arg": {
+              "op": "atom",
+              "name": "q"
+            }
+          }
+        },
+        {
+          "op": "EX",
+          "arg": {
+            "op": "and",
+            "left": {
+              "op": "atom",
+              "name": "p"
+            },
+            "right": {
+              "op": "atom",
+              "name": "q"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "strong-until",
+    "title": "Waiting forever does not satisfy strong until",
+    "why": "A closed p-loop never reaches q. EG p holds, but E[p U q] and A[p U q] both fail, even though p stays true.",
+    "input": {
+      "atoms": ["p", "q"],
+      "states": [
+        {
+          "name": "s0",
+          "labels": ["p"],
+          "next": ["s0"]
+        }
+      ],
+      "formulas": [
+        {
+          "op": "EG",
+          "arg": {
+            "op": "atom",
+            "name": "p"
+          }
+        },
+        {
+          "op": "EU",
+          "left": {
+            "op": "atom",
+            "name": "p"
+          },
+          "right": {
+            "op": "atom",
+            "name": "q"
+          }
+        },
+        {
+          "op": "AU",
+          "left": {
+            "op": "atom",
+            "name": "p"
+          },
+          "right": {
+            "op": "atom",
+            "name": "q"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-step",
+    "title": "Until can finish at time zero",
+    "why": "q already holds. Both until formulas hold immediately even though p is false and the next state loses q. A globally-q claim still fails.",
+    "input": {
+      "atoms": ["p", "q"],
+      "states": [
+        {
+          "name": "s0",
+          "labels": ["q"],
+          "next": ["s1"]
+        },
+        {
+          "name": "s1",
+          "labels": [],
+          "next": ["s1"]
+        }
+      ],
+      "formulas": [
+        {
+          "op": "EU",
+          "left": {
+            "op": "atom",
+            "name": "p"
+          },
+          "right": {
+            "op": "atom",
+            "name": "q"
+          }
+        },
+        {
+          "op": "AU",
+          "left": {
+            "op": "atom",
+            "name": "p"
+          },
+          "right": {
+            "op": "atom",
+            "name": "q"
+          }
+        },
+        {
+          "op": "AG",
+          "arg": {
+            "op": "atom",
+            "name": "q"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "next-vs-global",
+    "title": "Next is not always",
+    "why": "Every immediate successor has p, but the later tail loses it. AX p holds while AG p fails.",
+    "input": {
+      "atoms": ["p", "q"],
+      "states": [
+        {
+          "name": "s0",
+          "labels": [],
+          "next": ["s1"]
+        },
+        {
+          "name": "s1",
+          "labels": ["p"],
+          "next": ["s2"]
+        },
+        {
+          "name": "s2",
+          "labels": [],
+          "next": ["s2"]
+        }
+      ],
+      "formulas": [
+        {
+          "op": "AX",
+          "arg": {
+            "op": "atom",
+            "name": "p"
+          }
+        },
+        {
+          "op": "AG",
+          "arg": {
+            "op": "atom",
+            "name": "p"
+          }
+        },
+        {
+          "op": "AF",
+          "arg": {
+            "op": "atom",
+            "name": "p"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "recovery-choice",
+    "title": "One good path is not every path",
+    "why": "The start can choose a permanently-p branch or a permanently-not-p branch. EG p and AG p differ at the p-labelled start.",
+    "input": {
+      "atoms": ["p", "q"],
+      "states": [
+        {
+          "name": "s0",
+          "labels": ["p"],
+          "next": ["s1", "s2"]
+        },
+        {
+          "name": "s1",
+          "labels": ["p"],
+          "next": ["s1"]
+        },
+        {
+          "name": "s2",
+          "labels": [],
+          "next": ["s2"]
+        }
+      ],
+      "formulas": [
+        {
+          "op": "EG",
+          "arg": {
+            "op": "atom",
+            "name": "p"
+          }
+        },
+        {
+          "op": "AG",
+          "arg": {
+            "op": "atom",
+            "name": "p"
+          }
+        },
+        {
+          "op": "EF",
+          "arg": {
+            "op": "not",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "branching-rank",
+    "title": "Universal until needs every branch",
+    "why": "Both branches reach q after different numbers of p states. A[p U q] holds at the root, and its least-fixed-point entry round gives a common finite bound.",
+    "input": {
+      "atoms": ["p", "q"],
+      "states": [
+        {
+          "name": "s0",
+          "labels": ["p"],
+          "next": ["s1", "s2"]
+        },
+        {
+          "name": "s1",
+          "labels": ["p"],
+          "next": ["s3"]
+        },
+        {
+          "name": "s2",
+          "labels": ["p"],
+          "next": ["s1"]
+        },
+        {
+          "name": "s3",
+          "labels": ["q"],
+          "next": ["s3"]
+        }
+      ],
+      "formulas": [
+        {
+          "op": "AU",
+          "left": {
+            "op": "atom",
+            "name": "p"
+          },
+          "right": {
+            "op": "atom",
+            "name": "q"
+          }
+        },
+        {
+          "op": "EU",
+          "left": {
+            "op": "atom",
+            "name": "p"
+          },
+          "right": {
+            "op": "atom",
+            "name": "q"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "finite-until-failure",
+    "title": "A failed prefix is not only a lasso",
+    "why": "One path loses p before reaching q. The AU counterexample can be finite, while another branch still witnesses EU.",
+    "input": {
+      "atoms": ["p", "q"],
+      "states": [
+        {
+          "name": "s0",
+          "labels": ["p"],
+          "next": ["s1", "s2"]
+        },
+        {
+          "name": "s1",
+          "labels": [],
+          "next": ["s3"]
+        },
+        {
+          "name": "s2",
+          "labels": ["q"],
+          "next": ["s2"]
+        },
+        {
+          "name": "s3",
+          "labels": ["q"],
+          "next": ["s3"]
+        }
+      ],
+      "formulas": [
+        {
+          "op": "AU",
+          "left": {
+            "op": "atom",
+            "name": "p"
+          },
+          "right": {
+            "op": "atom",
+            "name": "q"
+          }
+        },
+        {
+          "op": "EU",
+          "left": {
+            "op": "atom",
+            "name": "p"
+          },
+          "right": {
+            "op": "atom",
+            "name": "q"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "nested-next",
+    "title": "Quantifier order changes the question",
+    "why": "Each successor can choose a p successor, but one successor also has a non-p choice. AX EX p holds while EX AX p fails at the root.",
+    "input": {
+      "atoms": ["p", "q"],
+      "states": [
+        {
+          "name": "s0",
+          "labels": [],
+          "next": ["s1", "s2"]
+        },
+        {
+          "name": "s1",
+          "labels": [],
+          "next": ["s3", "s4"]
+        },
+        {
+          "name": "s2",
+          "labels": [],
+          "next": ["s3", "s4"]
+        },
+        {
+          "name": "s3",
+          "labels": ["p"],
+          "next": ["s3"]
+        },
+        {
+          "name": "s4",
+          "labels": [],
+          "next": ["s4"]
+        }
+      ],
+      "formulas": [
+        {
+          "op": "AX",
+          "arg": {
+            "op": "EX",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          }
+        },
+        {
+          "op": "EX",
+          "arg": {
+            "op": "AX",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "six-state-chain",
+    "title": "Five transitions, six states",
+    "why": "A forced chain reaches p in exactly five transitions. The eventuality is not bounded by the number of shown sample traces.",
+    "input": {
+      "atoms": ["p", "q"],
+      "states": [
+        {
+          "name": "s0",
+          "labels": [],
+          "next": ["s1"]
+        },
+        {
+          "name": "s1",
+          "labels": [],
+          "next": ["s2"]
+        },
+        {
+          "name": "s2",
+          "labels": [],
+          "next": ["s3"]
+        },
+        {
+          "name": "s3",
+          "labels": [],
+          "next": ["s4"]
+        },
+        {
+          "name": "s4",
+          "labels": [],
+          "next": ["s5"]
+        },
+        {
+          "name": "s5",
+          "labels": ["p"],
+          "next": ["s5"]
+        }
+      ],
+      "formulas": [
+        {
+          "op": "AF",
+          "arg": {
+            "op": "atom",
+            "name": "p"
+          }
+        },
+        {
+          "op": "EF",
+          "arg": {
+            "op": "atom",
+            "name": "p"
+          }
+        },
+        {
+          "op": "AG",
+          "arg": {
+            "op": "EF",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "constant-boundaries",
+    "title": "Empty and full truth sets stay explicit",
+    "why": "False eventualities never arrive; true global formulas hold on every path. All subset fixed points remain inspectable rather than accepting an arbitrary self-consistent set.",
+    "input": {
+      "atoms": [],
+      "states": [
+        {
+          "name": "s0",
+          "labels": [],
+          "next": ["s0", "s1"]
+        },
+        {
+          "name": "s1",
+          "labels": [],
+          "next": ["s0", "s1"]
+        }
+      ],
+      "formulas": [
+        {
+          "op": "EF",
+          "arg": {
+            "op": "bool",
+            "value": false
+          }
+        },
+        {
+          "op": "AF",
+          "arg": {
+            "op": "bool",
+            "value": false
+          }
+        },
+        {
+          "op": "EG",
+          "arg": {
+            "op": "bool",
+            "value": true
+          }
+        },
+        {
+          "op": "AG",
+          "arg": {
+            "op": "bool",
+            "value": true
+          }
+        },
+        {
+          "op": "not",
+          "arg": {
+            "op": "AF",
+            "arg": {
+              "op": "bool",
+              "value": false
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "alternating",
+    "title": "Nested state formulas restart path choice",
+    "why": "Both states inevitably see p and inevitably see not-p on the forced alternating cycle. No single state label is globally constant.",
+    "input": {
+      "atoms": ["p", "q"],
+      "states": [
+        {
+          "name": "s0",
+          "labels": ["p"],
+          "next": ["s1"]
+        },
+        {
+          "name": "s1",
+          "labels": [],
+          "next": ["s0"]
+        }
+      ],
+      "formulas": [
+        {
+          "op": "AG",
+          "arg": {
+            "op": "AF",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          }
+        },
+        {
+          "op": "AG",
+          "arg": {
+            "op": "AF",
+            "arg": {
+              "op": "not",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          }
+        },
+        {
+          "op": "EG",
+          "arg": {
+            "op": "atom",
+            "name": "p"
+          }
+        },
+        {
+          "op": "AG",
+          "arg": {
+            "op": "atom",
+            "name": "p"
+          }
+        }
+      ]
+    }
+  }
+]
