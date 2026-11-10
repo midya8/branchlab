@@ -1,0 +1,202 @@
+section {
+  padding: 45px 0;
+  border-bottom: 1px solid var(--line);
+}
+.hero {
+  border: 0;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+.card {
+  padding: 18px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  min-width: 0;
+}
+.card.warn {
+  border-left-color: var(--no);
+}
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+.card p {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.scroll {
+  max-width: 100%;
+  overflow: auto;
+  margin: 18px 0;
+}
+table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  font:
+    12px/1.6 ui-monospace,
+    monospace;
+}
+th,
+td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+th {
+  color: var(--accent);
+  background: var(--panel);
+}
+td {
+  vertical-align: top;
+}
+select {
+  width: 100%;
+  margin: 8px 0 22px;
+}
+textarea {
+  width: 100%;
+  height: 330px;
+  margin: 12px 0;
+  resize: vertical;
+}
+pre {
+  overflow: auto;
+  max-height: 420px;
+  padding: 20px;
+  background: #0b1114;
+  font:
+    12px/1.6 ui-monospace,
+    monospace;
+}
+details {
+  margin: 20px 0;
+}
+summary {
+  cursor: pointer;
+  color: var(--blue);
+}
+.graph {
+  min-height: 0;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+.graph svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.graph .edge {
+  fill: none;
+  stroke: #6d818b;
+  stroke-width: 1.5;
+}
+.graph .cycle {
+  stroke: var(--accent);
+  stroke-width: 3.5;
+}
+.graph .prefix {
+  stroke: var(--blue);
+  stroke-width: 3;
+}
+.graph .off {
+  opacity: 0.16;
+}
+.graph circle {
+  stroke: #d4dedc;
+  stroke-width: 1.7;
+}
+.graph text {
+  font:
+    15px ui-monospace,
+    monospace;
+  fill: var(--ink);
+}
+.graph .mark {
+  font-size: 10px;
+  fill: var(--accent);
+}
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.method {
+  max-width: 980px;
+  margin-bottom: 35px;
+}
+#status {
+  font-weight: 700;
+  color: var(--accent);
+}
+#why {
+  max-width: 900px;
+}
+.hero-note code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.small {
+  font-size: 12px;
+}
+.method li {
+  margin: 12px 0;
+  color: var(--muted);
+}
+@media (max-width: 600px) {
+  main {
+    padding: 0 20px;
+  }
+  header {
+    align-items: flex-start;
+  }
+  .hero {
+    padding: 46px 0 30px;
+    gap: 26px;
+  }
+  .hero h1 {
+    font-size: 52px;
+    letter-spacing: -2px;
+  }
+  h2 {
+    font-size: 29px;
+  }
+  section {
+    padding: 34px 0;
+  }
+  .input-grid {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    padding: 15px;
+  }
+}
+/* The ordinary inspector's compact graph viewport must not crop this atlas. */
+#graph {
+  height: auto;
+  overflow: visible;
+  padding: 0;
+}
+#graph svg {
+  height: auto;
+  max-height: none;
+  width: 100%;
+  aspect-ratio: 1/1;
+}
+#graph marker path {
+  stroke: none;
+}
+
+#graph .justice {
+  font-size: 9px;
+  fill: var(--accent);
+}
+.method {
+  display: block;
+}

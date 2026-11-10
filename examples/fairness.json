@@ -1,0 +1,140 @@
+{
+  "model": {
+    "states": [
+      {
+        "name": "s0",
+        "labels": [
+          "q"
+        ],
+        "next": [
+          "s1",
+          "s2",
+          "s3"
+        ]
+      },
+      {
+        "name": "s1",
+        "labels": [
+          "p",
+          "q"
+        ],
+        "next": [
+          "s0"
+        ]
+      },
+      {
+        "name": "s2",
+        "labels": [
+          "q"
+        ],
+        "next": [
+          "s0"
+        ]
+      },
+      {
+        "name": "s3",
+        "labels": [
+          "p",
+          "q"
+        ],
+        "next": [
+          "s3"
+        ]
+      }
+    ],
+    "atoms": [
+      "p",
+      "q"
+    ],
+    "formulas": [
+      {
+        "op": "AF",
+        "arg": {
+          "op": "atom",
+          "name": "p"
+        }
+      },
+      {
+        "op": "EG",
+        "arg": {
+          "op": "not",
+          "arg": {
+            "op": "atom",
+            "name": "p"
+          }
+        }
+      },
+      {
+        "op": "AG",
+        "arg": {
+          "op": "EF",
+          "arg": {
+            "op": "atom",
+            "name": "p"
+          }
+        }
+      },
+      {
+        "op": "AU",
+        "left": {
+          "op": "atom",
+          "name": "q"
+        },
+        "right": {
+          "op": "atom",
+          "name": "p"
+        }
+      },
+      {
+        "op": "EU",
+        "left": {
+          "op": "atom",
+          "name": "q"
+        },
+        "right": {
+          "op": "atom",
+          "name": "p"
+        }
+      },
+      {
+        "op": "AX",
+        "arg": {
+          "op": "bool",
+          "value": false
+        }
+      },
+      {
+        "op": "EX",
+        "arg": {
+          "op": "bool",
+          "value": true
+        }
+      },
+      {
+        "op": "and",
+        "left": {
+          "op": "atom",
+          "name": "p"
+        },
+        "right": {
+          "op": "not",
+          "arg": {
+            "op": "EG",
+            "arg": {
+              "op": "bool",
+              "value": true
+            }
+          }
+        }
+      }
+    ]
+  },
+  "justice": [
+    [
+      "s1"
+    ],
+    [
+      "s2"
+    ]
+  ]
+}

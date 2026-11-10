@@ -1,2 +1,5 @@
 # Optional test reference only. GPL-2.0-or-later package is not vendored or runtime.
 pyModelChecking==1.3.4
+
+# Optional graph-only fair-region reference, not a fair-CTL solver.
+networkx==3.4.2

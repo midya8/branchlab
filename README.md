@@ -8,7 +8,24 @@ The default model has a waiting state that can loop or move to a goal. `AG EF p`
 - [Method, source notes and proof limits](METHOD.md)
 - [Editable default model](examples/always-possible.json)
 
-## What it computes
+## New in 0.2: explicit justice, explicit vacuity
+
+The separate [fair-path inspector](https://midya8.github.io/branchlab/fair.html) adds zero to four state-justice sets. A fair infinite path must meet each set infinitely often on the same execution. The original ordinary-CTL page and schema are unchanged. Local atoms stay local; universal temporal claims at a state with no fair continuation are visibly labeled vacuous.
+
+The default repeated-hub walk `s0 → s1 → s0 → s2 → s0` meets two justice sets that no first-repeat simple cycle can cover. A trap retains its p label but admits no fair path. All induced state regions, component justice intersections, backward rounds, canonical prefix/closed-walk witnesses and ordinary-versus-fair subformula truth sets are inspectable. Fair EG restricts to the operand first; ordinary EG intersected with globally fair states is not enough.
+
+```sh
+branchlab-fair examples/fairness.json --output /tmp/fair.json
+branchlab-fair /tmp/fair.json --verify
+# Equivalently: python -m branchlab.fair_cli ...
+python tools/check_fair_networkx.py  # optional NetworkX3.4.2 graph reference
+```
+
+All29Python tests retain15ordinary tests and add14fairness tests; all7Node tests retain prior engine/browser checks. The new native, independent recurrent-subset/closure checker and separately written two-pass-component browser agree on278complete reports,2808regions,4135subformulas and2643fair lassos. All519noninput primitive leaves of one full certificate are separately changed and rejected. The genuinely invoked optional NetworkX3.4.2 reference checks278requests/2808regions/4632components/2643lassos; it is a graph reference, not an external full fair-CTL solver. Existing pyModelChecking1.3.4 ordinary tests remain; three actual installed counterexamples exclude its fairness path as a new oracle rather than faking agreement.
+
+Actual Chrome fairness checks36reports at1280/390/320,216regions,612start-region selections,465subformula selections,390walk rows,2628graph edges and12trusted completed downloads replayed natively. Set `FAIR_SCREEN_DIR` for screenshots or `BRANCHLAB_FAIR_URL` to target deployment. Fresh installed wheels add nine module-origin checks,12fair controls/both entrypoints,24forged CLI rejections with atomic output preservation and24directcheckerforgeries while retaining the ordinary installed workflow. [FAIRNESS.md](FAIRNESS.md) states the exact convention, source conflicts, derivation and limits.
+
+## What the original inspector computes
 
 A supplied total Kripke structure with 1..6 states, up to four atomic propositions and up to eight formula roots. JSON AST supports `bool`, `atom`, `not`, `and`, `or`, `EX`, `AX`, `EF`, `AF`, `EG`, `AG`, `EU`, `AU`. Until is strong and includes time zero. Every state is checked, not only a designated initial state. No fairness, probability, action or controller is implied.
 
@@ -34,7 +51,7 @@ The verifier imports neither the generator nor its iteration. It computes truth 
 Browser and reference checks:
 
 ```sh
-node --test tests/test_engine.mjs tests/test_browser.cjs
+npm test
 python -m pip install -r requirements-reference.txt
 python tools/check_reference.py
 python -m http.server --directory docs 8000

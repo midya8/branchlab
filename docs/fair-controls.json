@@ -1,0 +1,1090 @@
+[
+  {
+    "title": "One walk must visit both",
+    "why": "A fair cycle must revisit the hub to see both justice sets. A first-repeat simple cycle cannot do it. The trap keeps local truth but has no fair continuation.",
+    "input": {
+      "model": {
+        "states": [
+          {
+            "name": "s0",
+            "labels": ["q"],
+            "next": ["s1", "s2", "s3"]
+          },
+          {
+            "name": "s1",
+            "labels": ["p", "q"],
+            "next": ["s0"]
+          },
+          {
+            "name": "s2",
+            "labels": ["q"],
+            "next": ["s0"]
+          },
+          {
+            "name": "s3",
+            "labels": ["p", "q"],
+            "next": ["s3"]
+          }
+        ],
+        "atoms": ["p", "q"],
+        "formulas": [
+          {
+            "op": "AF",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EG",
+            "arg": {
+              "op": "not",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AG",
+            "arg": {
+              "op": "EF",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "AX",
+            "arg": {
+              "op": "bool",
+              "value": false
+            }
+          },
+          {
+            "op": "EX",
+            "arg": {
+              "op": "bool",
+              "value": true
+            }
+          },
+          {
+            "op": "and",
+            "left": {
+              "op": "atom",
+              "name": "p"
+            },
+            "right": {
+              "op": "not",
+              "arg": {
+                "op": "EG",
+                "arg": {
+                  "op": "bool",
+                  "value": true
+                }
+              }
+            }
+          }
+        ]
+      },
+      "justice": [["s1"], ["s2"]]
+    }
+  },
+  {
+    "title": "Waiting is excluded, not repaired",
+    "why": "Requiring goal visits removes the infinite wait from quantified paths. It does not change any edge or enforce a scheduler.",
+    "input": {
+      "model": {
+        "states": [
+          {
+            "name": "s0",
+            "labels": ["q"],
+            "next": ["s0", "s1"]
+          },
+          {
+            "name": "s1",
+            "labels": ["p", "q"],
+            "next": ["s1"]
+          }
+        ],
+        "atoms": ["p", "q"],
+        "formulas": [
+          {
+            "op": "AF",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EG",
+            "arg": {
+              "op": "not",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AG",
+            "arg": {
+              "op": "EF",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "AX",
+            "arg": {
+              "op": "bool",
+              "value": false
+            }
+          },
+          {
+            "op": "EX",
+            "arg": {
+              "op": "bool",
+              "value": true
+            }
+          },
+          {
+            "op": "and",
+            "left": {
+              "op": "atom",
+              "name": "p"
+            },
+            "right": {
+              "op": "not",
+              "arg": {
+                "op": "EG",
+                "arg": {
+                  "op": "bool",
+                  "value": true
+                }
+              }
+            }
+          }
+        ]
+      },
+      "justice": [["s1"]]
+    }
+  },
+  {
+    "title": "No fair path, no liveness success",
+    "why": "An empty justice set makes every fair temporal universal vacuous. Local atoms still follow their labels and existential temporal claims fail.",
+    "input": {
+      "model": {
+        "states": [
+          {
+            "name": "s0",
+            "labels": ["p"],
+            "next": ["s0"]
+          }
+        ],
+        "atoms": ["p", "q"],
+        "formulas": [
+          {
+            "op": "AF",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EG",
+            "arg": {
+              "op": "not",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AG",
+            "arg": {
+              "op": "EF",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "AX",
+            "arg": {
+              "op": "bool",
+              "value": false
+            }
+          },
+          {
+            "op": "EX",
+            "arg": {
+              "op": "bool",
+              "value": true
+            }
+          },
+          {
+            "op": "and",
+            "left": {
+              "op": "atom",
+              "name": "p"
+            },
+            "right": {
+              "op": "not",
+              "arg": {
+                "op": "EG",
+                "arg": {
+                  "op": "bool",
+                  "value": true
+                }
+              }
+            }
+          }
+        ]
+      },
+      "justice": [[]]
+    }
+  },
+  {
+    "title": "Reachable separately is insufficient",
+    "why": "Both justice sets are reachable, but different absorbing branches cannot visit both infinitely often on one path.",
+    "input": {
+      "model": {
+        "states": [
+          {
+            "name": "s0",
+            "labels": ["q"],
+            "next": ["s1", "s2"]
+          },
+          {
+            "name": "s1",
+            "labels": ["p"],
+            "next": ["s1"]
+          },
+          {
+            "name": "s2",
+            "labels": ["q"],
+            "next": ["s2"]
+          }
+        ],
+        "atoms": ["p", "q"],
+        "formulas": [
+          {
+            "op": "AF",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EG",
+            "arg": {
+              "op": "not",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AG",
+            "arg": {
+              "op": "EF",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "AX",
+            "arg": {
+              "op": "bool",
+              "value": false
+            }
+          },
+          {
+            "op": "EX",
+            "arg": {
+              "op": "bool",
+              "value": true
+            }
+          },
+          {
+            "op": "and",
+            "left": {
+              "op": "atom",
+              "name": "p"
+            },
+            "right": {
+              "op": "not",
+              "arg": {
+                "op": "EG",
+                "arg": {
+                  "op": "bool",
+                  "value": true
+                }
+              }
+            }
+          }
+        ]
+      },
+      "justice": [["s1"], ["s2"]]
+    }
+  },
+  {
+    "title": "One visit is not infinitely often",
+    "why": "The first state meets justice only once, then the system remains elsewhere forever.",
+    "input": {
+      "model": {
+        "states": [
+          {
+            "name": "s0",
+            "labels": ["p", "q"],
+            "next": ["s1"]
+          },
+          {
+            "name": "s1",
+            "labels": ["q"],
+            "next": ["s1"]
+          }
+        ],
+        "atoms": ["p", "q"],
+        "formulas": [
+          {
+            "op": "AF",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EG",
+            "arg": {
+              "op": "not",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AG",
+            "arg": {
+              "op": "EF",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "AX",
+            "arg": {
+              "op": "bool",
+              "value": false
+            }
+          },
+          {
+            "op": "EX",
+            "arg": {
+              "op": "bool",
+              "value": true
+            }
+          },
+          {
+            "op": "and",
+            "left": {
+              "op": "atom",
+              "name": "p"
+            },
+            "right": {
+              "op": "not",
+              "arg": {
+                "op": "EG",
+                "arg": {
+                  "op": "bool",
+                  "value": true
+                }
+              }
+            }
+          }
+        ]
+      },
+      "justice": [["s0"]]
+    }
+  },
+  {
+    "title": "Global fair reachability is not fair EG",
+    "why": "A state has a fair continuation, but every fair continuation leaves p. EG p must use the induced p region, not ordinary EG p intersect global fair states.",
+    "input": {
+      "model": {
+        "states": [
+          {
+            "name": "s0",
+            "labels": ["p", "q"],
+            "next": ["s0", "s1"]
+          },
+          {
+            "name": "s1",
+            "labels": ["q"],
+            "next": ["s1"]
+          }
+        ],
+        "atoms": ["p", "q"],
+        "formulas": [
+          {
+            "op": "EG",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EX",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "AF",
+            "arg": {
+              "op": "not",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AG",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          }
+        ]
+      },
+      "justice": [["s1"]]
+    }
+  },
+  {
+    "title": "A real two-state recurrent class",
+    "why": "A two-state cycle is fair without self-loops. Singleton self-loops count too; singleton vertices without loops do not.",
+    "input": {
+      "model": {
+        "states": [
+          {
+            "name": "s0",
+            "labels": ["p", "q"],
+            "next": ["s1"]
+          },
+          {
+            "name": "s1",
+            "labels": ["q"],
+            "next": ["s0"]
+          }
+        ],
+        "atoms": ["p", "q"],
+        "formulas": [
+          {
+            "op": "AF",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EG",
+            "arg": {
+              "op": "not",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AG",
+            "arg": {
+              "op": "EF",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "AX",
+            "arg": {
+              "op": "bool",
+              "value": false
+            }
+          },
+          {
+            "op": "EX",
+            "arg": {
+              "op": "bool",
+              "value": true
+            }
+          },
+          {
+            "op": "and",
+            "left": {
+              "op": "atom",
+              "name": "p"
+            },
+            "right": {
+              "op": "not",
+              "arg": {
+                "op": "EG",
+                "arg": {
+                  "op": "bool",
+                  "value": true
+                }
+              }
+            }
+          }
+        ]
+      },
+      "justice": [["s0"], ["s1"]]
+    }
+  },
+  {
+    "title": "Until needs a fair suffix",
+    "why": "A reachable right operand at an unfair terminal branch cannot finish an existential fair-until witness.",
+    "input": {
+      "model": {
+        "states": [
+          {
+            "name": "s0",
+            "labels": ["q"],
+            "next": ["s1", "s2"]
+          },
+          {
+            "name": "s1",
+            "labels": ["p"],
+            "next": ["s1"]
+          },
+          {
+            "name": "s2",
+            "labels": ["q"],
+            "next": ["s2"]
+          }
+        ],
+        "atoms": ["p", "q"],
+        "formulas": [
+          {
+            "op": "EF",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "AG",
+            "arg": {
+              "op": "not",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AX",
+            "arg": {
+              "op": "atom",
+              "name": "q"
+            }
+          }
+        ]
+      },
+      "justice": [["s2"]]
+    }
+  },
+  {
+    "title": "No assumption recovers ordinary CTL",
+    "why": "With no justice constraints, every infinite path is admitted in this supplied total model.",
+    "input": {
+      "model": {
+        "states": [
+          {
+            "name": "s0",
+            "labels": ["q"],
+            "next": ["s0", "s1"]
+          },
+          {
+            "name": "s1",
+            "labels": ["p", "q"],
+            "next": ["s1"]
+          }
+        ],
+        "atoms": ["p", "q"],
+        "formulas": [
+          {
+            "op": "AF",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EG",
+            "arg": {
+              "op": "not",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AG",
+            "arg": {
+              "op": "EF",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "AX",
+            "arg": {
+              "op": "bool",
+              "value": false
+            }
+          },
+          {
+            "op": "EX",
+            "arg": {
+              "op": "bool",
+              "value": true
+            }
+          },
+          {
+            "op": "and",
+            "left": {
+              "op": "atom",
+              "name": "p"
+            },
+            "right": {
+              "op": "not",
+              "arg": {
+                "op": "EG",
+                "arg": {
+                  "op": "bool",
+                  "value": true
+                }
+              }
+            }
+          }
+        ]
+      },
+      "justice": []
+    }
+  },
+  {
+    "title": "Time zero still needs continuation",
+    "why": "The until goal is true now, but existential until still needs an infinite fair path. Without one it fails; universal until is vacuous.",
+    "input": {
+      "model": {
+        "states": [
+          {
+            "name": "s0",
+            "labels": ["p", "q"],
+            "next": ["s0"]
+          }
+        ],
+        "atoms": ["p", "q"],
+        "formulas": [
+          {
+            "op": "EU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "AU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "atom",
+            "name": "p"
+          },
+          {
+            "op": "not",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          }
+        ]
+      },
+      "justice": [[]]
+    }
+  },
+  {
+    "title": "Justice may overlap",
+    "why": "One recurrent state can satisfy several justice sets; each cycle records an actual occurrence for every set.",
+    "input": {
+      "model": {
+        "states": [
+          {
+            "name": "s0",
+            "labels": ["q"],
+            "next": ["s1"]
+          },
+          {
+            "name": "s1",
+            "labels": ["p", "q"],
+            "next": ["s0", "s2"]
+          },
+          {
+            "name": "s2",
+            "labels": ["q"],
+            "next": ["s2"]
+          }
+        ],
+        "atoms": ["p", "q"],
+        "formulas": [
+          {
+            "op": "AF",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EG",
+            "arg": {
+              "op": "not",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AG",
+            "arg": {
+              "op": "EF",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "AU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "EU",
+            "left": {
+              "op": "atom",
+              "name": "q"
+            },
+            "right": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "AX",
+            "arg": {
+              "op": "bool",
+              "value": false
+            }
+          },
+          {
+            "op": "EX",
+            "arg": {
+              "op": "bool",
+              "value": true
+            }
+          },
+          {
+            "op": "and",
+            "left": {
+              "op": "atom",
+              "name": "p"
+            },
+            "right": {
+              "op": "not",
+              "arg": {
+                "op": "EG",
+                "arg": {
+                  "op": "bool",
+                  "value": true
+                }
+              }
+            }
+          }
+        ]
+      },
+      "justice": [["s0", "s1"], ["s1"]]
+    }
+  },
+  {
+    "title": "Nested quantifiers restart",
+    "why": "Always having a fair route to p does not mean one path can stay in p. Every nested temporal operator gets its own fair path quantifier.",
+    "input": {
+      "model": {
+        "states": [
+          {
+            "name": "s0",
+            "labels": ["q"],
+            "next": ["s1", "s2"]
+          },
+          {
+            "name": "s1",
+            "labels": ["p", "q"],
+            "next": ["s0"]
+          },
+          {
+            "name": "s2",
+            "labels": ["q"],
+            "next": ["s0"]
+          }
+        ],
+        "atoms": ["p", "q"],
+        "formulas": [
+          {
+            "op": "AG",
+            "arg": {
+              "op": "EF",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            }
+          },
+          {
+            "op": "EG",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "AF",
+            "arg": {
+              "op": "atom",
+              "name": "p"
+            }
+          },
+          {
+            "op": "or",
+            "left": {
+              "op": "AX",
+              "arg": {
+                "op": "atom",
+                "name": "p"
+              }
+            },
+            "right": {
+              "op": "EX",
+              "arg": {
+                "op": "atom",
+                "name": "q"
+              }
+            }
+          }
+        ]
+      },
+      "justice": [["s1"], ["s2"]]
+    }
+  }
+]
