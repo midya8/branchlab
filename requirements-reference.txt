@@ -1,0 +1,2 @@
+# Optional test reference only. GPL-2.0-or-later package is not vendored or runtime.
+pyModelChecking==1.3.4
