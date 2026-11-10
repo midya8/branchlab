@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Explicit state-justice fair CTL: every induced region, recurrent component, fair lasso and vacuity witness."
+    />
+    <title>BranchLab | A fair path is an assumption</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="fair.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <a class="brand" href="index.html">BRANCHLAB / ORDINARY CTL</a
+        ><a
+          class="tag"
+          href="https://github.com/midya8/branchlab/blob/main/FAIRNESS.md"
+          >METHOD & SOURCES ↗</a
+        >
+      </header>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">EXPLICIT JUSTICE / FAIR BRANCHING TIME</p>
+          <h1>A fair path.<br />Not a promise.</h1>
+          <p class="lead">
+            An infinite wait can disappear when you assume progress. The graph
+            has not changed. Neither has the scheduler. See which claims
+            survive, and which become true because no fair path remains.
+          </p>
+          <p class="muted">
+            1-6 supplied total states. 0-4 state-justice sets. Every set must
+            recur infinitely often on the same path. Exact finite graph
+            reasoning, no model or API.
+          </p>
+        </div>
+        <aside class="hero-note">
+          <span>ONE EXECUTION, BOTH OBLIGATIONS</span
+          ><code>hub → a → hub → b → hub</code>
+          <p>
+            Two justice sets can need a recurrent walk that revisits its hub.
+            Stopping at the first repeated state would miss it.
+          </p>
+          <b>Every quantified path must have a fair continuation.</b>
+        </aside>
+      </section>
+      <section>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">01 / WHAT ARE YOU ASSUMING?</p>
+            <h2>Keep the assumption visible.</h2>
+          </div>
+        </div>
+        <label for="control">Original synthetic control</label
+        ><select id="control"></select>
+        <p id="why" class="muted"></p>
+        <details>
+          <summary>
+            Edit the supplied total graph, formulas and justice sets
+          </summary>
+          <label for="input">JSON: model + justice</label
+          ><textarea id="input" spellcheck="false"></textarea
+          ><button id="run">Analyze fair paths</button>
+        </details>
+        <p id="status" role="status"></p>
+      </section>
+      <div id="results" hidden>
+        <section>
+          <p class="eyebrow">02 / ORDINARY VERSUS FAIR</p>
+          <h2>Same states. Different quantified paths.</h2>
+          <div id="fair-summary" class="cards"></div>
+          <div id="model-table-fair" class="scroll"></div>
+          <div id="atom-table-fair" class="scroll"></div>
+          <div id="justice-table" class="scroll"></div>
+          <div id="root-table" class="scroll"></div>
+          <p class="small muted">
+            Local atoms and Boolean truth remain local. Only temporal path
+            quantifiers change. A universal temporal claim can be vacuously true
+            at a state with no fair continuation; that is not a progress
+            guarantee.
+          </p>
+        </section>
+        <section>
+          <p class="eyebrow">03 / EVERY INDUCED REGION</p>
+          <h2>Which recurrent part can meet them all?</h2>
+          <label for="region"
+            >Allowed state region / complete subset atlas</label
+          ><select id="region"></select
+          ><label for="start">Start state for a fair-path witness</label
+          ><select id="start"></select>
+          <div class="input-grid">
+            <div>
+              <div
+                id="graph"
+                class="graph"
+                aria-label="Supplied graph, selected induced region and fair-walk edges"
+              ></div>
+              <p class="small muted">
+                All original edges stay visible. Excluded states/edges fade.
+                Graph state/atom indices follow the input order; complete names
+                remain in the tables. Lime edges repeat in the selected cycle;
+                blue edges lead to it. State colors mark the selected region's
+                fair recurrent components, not an agent policy.
+              </p>
+            </div>
+            <div>
+              <div id="region-summary" class="cards"></div>
+              <div id="lasso-summary" class="cards"></div>
+            </div>
+          </div>
+          <div id="component-table" class="scroll"></div>
+          <div id="walk-table" class="scroll"></div>
+          <h3>Backward reachability inside this region</h3>
+          <div id="reach-table" class="scroll"></div>
+          <details>
+            <summary>Complete selected region record</summary>
+            <pre id="region-json"></pre>
+          </details>
+          <h3>All regions, including the empty one</h3>
+          <div id="atlas-table" class="scroll"></div>
+        </section>
+        <section>
+          <p class="eyebrow">04 / SUBFORMULA BY SUBFORMULA</p>
+          <h2>Quantifiers restart. So does the obligation.</h2>
+          <label for="formula">Every unique subformula</label
+          ><select id="formula"></select>
+          <div id="formula-summary" class="cards"></div>
+          <button id="open-region">
+            Inspect this formula's recurrent region
+          </button>
+          <div id="state-table" class="scroll"></div>
+          <h3>Finite fair-until rounds / where this operator needs them</h3>
+          <div id="round-table" class="scroll"></div>
+          <details>
+            <summary>Complete selected subformula record</summary>
+            <pre id="formula-json"></pre>
+          </details>
+        </section>
+        <section>
+          <button id="download" disabled>
+            Download independently checkable certificate
+          </button>
+          <p class="small muted">
+            The browser produces evidence locally. It is independently checked
+            only when the native replay accepts the complete downloaded file.
+          </p>
+        </section>
+      </div>
+      <section class="method">
+        <p class="eyebrow">METHOD / EXPLICIT, SMALL AND QUALIFIED</p>
+        <h2>Exclude a path.<br />Do not invent a controller.</h2>
+        <p>
+          Native Tarjan components and backward reachability find fair recurrent
+          regions. An independent checker enumerates recurrent subsets using
+          Boolean transitive closure, checks finite simple prefixes, and
+          reconstructs cycle witnesses with a separate product-state search. The
+          cycle must meet every justice set on one repeated walk. A singleton
+          needs a self-loop; a larger recurrent component does not.
+        </p>
+        <pre>
+branchlab-fair examples/fairness.json --output certificate.json
+branchlab-fair certificate.json --verify</pre>
+        <ul id="limits"></ul>
+        <p>
+          Fair EG restricts the graph to its operand before finding recurrent
+          components. Ordinary EG intersected with globally fair states is not
+          enough. Fair EX and strong until require a fair suffix even when the
+          goal is already true at time zero.
+        </p>
+        <p>
+          State justice is an explicit assumption. No probabilities, actions,
+          scheduler enforcement, weak/strong action fairness or Streett
+          compassion are inferred. Classical finite fair CTL, not new theory,
+          arbitrary CTL*, symbolic scale or a guarantee about real AI agents.
+        </p>
+        <details>
+          <summary>Complete certificate</summary>
+          <pre id="report-json"></pre>
+        </details>
+        <p>
+          <a href="https://github.com/midya8/branchlab"
+            >Source and reproduction</a
+          >
+          ·
+          <a href="https://github.com/midya8/branchlab/blob/main/FAIRNESS.md"
+            >Contract, derivation and inspected sources</a
+          >
+        </p>
+      </section>
+    </main>
+    <script type="module" src="fair-app.js"></script>
+  </body>
+</html>
