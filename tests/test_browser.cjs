@@ -327,10 +327,17 @@ test(
             });
             const previous = new Set(downloads.keys());
             await js(
-              'document.getElementById("download").scrollIntoView({block:"center"})',
+              'document.getElementById("download").scrollIntoView({block:"center"});new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))',
             );
             const b = await js(
               '(()=>{const r=document.getElementById("download").getBoundingClientRect();return{x:r.x+r.width/2,y:r.y+r.height/2}})()',
+            );
+            assert.equal(
+              await js(
+                '(()=>{const e=document.getElementById("download"),r=e.getBoundingClientRect();return document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)===e})()',
+              ),
+              true,
+              "download center must be the visible hit target",
             );
             for (const type of ["mousePressed", "mouseReleased"])
               await call("Input.dispatchMouseEvent", {
