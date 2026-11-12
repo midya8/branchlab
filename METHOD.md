@@ -1,10 +1,14 @@
-# Method: BranchLab
+# BranchLab: ordinary CTL
+
+These notes define the original total-graph, ordinary-CTL mode.
+[FAIRNESS.md](FAIRNESS.md) defines the separate justice-set path convention,
+including vacuous temporal claims and the restrictions on fair EG.
 
 ## Contract
 
-Supplied finite total Kripke graph, not a game: every state has at least one successor. We reject deadlocks rather than silently adding transitions or choosing a finite-path convention. All paths are infinite; path quantifiers have no fairness restriction. Labels are state propositions, not probabilities or inferred facts. All supplied states are checked, including states unreachable from a particular viewing selection.
+Supplied finite total Kripke graph, not a game: every state has at least one successor. We reject deadlocks rather than silently adding transitions or choosing a finite-path convention. In this original mode all paths are infinite and path quantifiers have no fairness restriction. Labels are state propositions, not probabilities or inferred facts. All supplied states are checked, including states unreachable from a particular viewing selection.
 
-The bounded AST uses one quantifier per temporal operator, with state-formula children. Nested quantifiers restart at the current state. `AG EF p` is not the same as `AF p`, and `AX EX p` is not `EX AX p`. The workbench does not accept arbitrary CTL*, LTL, fairness, weak until, release or textual SMV specifications. Strong until admits a zero-step right operand and excludes waiting forever without it. Limits are 1..6 states, at most4 atoms, 1..8 roots, depth6, at most32 nodes/root and128 in total. Reports use state order, not lexicographic name order; repeated identical subformulas share an ID and child-first entry.
+The bounded AST uses one quantifier per temporal operator, with state-formula children. Nested quantifiers restart at the current state. `AG EF p` is not the same as `AF p`, and `AX EX p` is not `EX AX p`. This mode does not accept arbitrary CTL*, LTL, justice sets, weak until, release or textual SMV specifications. The separate fair mode accepts explicitly supplied justice sets. Strong until admits a zero-step right operand and excludes waiting forever without it. Limits are 1..6 states, at most 4 atoms, 1..8 roots, depth 6, at most 32 nodes/root and 128 in total. Reports use state order, not lexicographic name order; repeated identical subformulas share an ID and child-first entry.
 
 ## Truth equations
 
@@ -32,9 +36,9 @@ The browser independently implements validation, integer-bitmask truth iteration
 
 ## Coverage
 
-Native tests check all144 two-state total transition graphs with every two-proposition labelling, plus all2744 three-state total graph/one-proposition labellings with q fixed at state2. The latter uses a third direct semantics oracle: finite prefixes for EF/AG/EU and first-repeat lassos plus bad prefixes for AF/EG/AU. These exhaustions cover those stated small spaces, not all larger graphs or all CTL formulas.120 seeded nested cases test1..6 states;60 seeded duality cases, malformed schemas and all445 non-input primitive fields of the default report are tested. A tamper count is specific to this default, not every possible report.
+Native tests check all 144 two-state total transition graphs with every two-proposition labelling, plus all 2,744 three-state total graph/one-proposition labellings with q fixed at state 2. The latter uses a third direct semantics oracle: finite prefixes for EF/AG/EU and first-repeat lassos plus bad prefixes for AF/EG/AU. These exhaustions cover those stated small spaces, not all larger graphs or all CTL formulas. 120 seeded nested cases test 1..6 states; 60 seeded duality cases, malformed schemas and all 445 non-input primitive fields of the default report are tested. A tamper count is specific to this default, not every possible report.
 
-The browser-engine full-record comparison covers276 requests,3662 unique subformula records,3963 rounds and30020 subset-atlas rows. Optional **actual installed pyModelChecking1.3.4** checks212 requests and3630 subformula truth sets, including all12 controls and200 seeded nested cases. It is a separate GPL test dependency, never vendored or part of runtime; agreement is a correctness cross-check, not a formal proof or performance benchmark. No code is copied from it. Commands and CI reproduce these checks; a failed check must stay visible until fixed.
+The browser-engine full-record comparison covers 276 requests, 3,662 unique subformula records, 3,963 rounds and 30,020 subset-atlas rows. Optional pyModelChecking 1.3.4 checks 212 requests and 3,630 subformula truth sets, including all 12 controls and 200 seeded nested cases. It is a separate GPL test dependency, never vendored or part of runtime; agreement is a correctness cross-check, not a formal proof or performance benchmark. No code is copied from it. Commands and CI reproduce these checks; a failed check must stay visible until fixed.
 
 The actual Chrome test covers the full UI controls and exports, including narrow widths, arbitrary edits and rejection recovery. The release record describes observed runs; no timing or scaling benchmark is claimed.
 
@@ -42,13 +46,13 @@ The actual Chrome test covers the full UI controls and exports, including narrow
 
 Classical theory is credited below. University lecture notes corroborate the fixed-point equations, monotonicity and finite-state iteration. NuSMV pages are explicitly historical versions used for semantics and witness limitations, not current product behavior claims.
 
-1. Matt Fredrikson, CMU15-414 lecture23, Spring2023: [CTL model checking](https://www.cs.cmu.edu/~15414/s23/lectures/23-ctl-checking.pdf). Total structure, subformula algorithm and least/greatest CTL equations.
-2. Tevfik Bultan, UCSB267 [lecture3](https://sites.cs.ucsb.edu/~bultan/courses/267/lectures/l3.pdf). Fixed-point lattice reasoning, EF least and EG greatest.
-3. Tim Willemse, TU Eindhoven2019 [lecture2](https://timw.win.tue.nl/downloads/amc2019/lecture2.pdf). EX/EG/EU basis, finite iteration and symbolic/explicit distinction.
+1. Matt Fredrikson, CMU 15-414 lecture 23, Spring 2023: [CTL model checking](https://www.cs.cmu.edu/~15414/s23/lectures/23-ctl-checking.pdf). Total structure, subformula algorithm and least/greatest CTL equations.
+2. Tevfik Bultan, UCSB 267 [lecture3](https://sites.cs.ucsb.edu/~bultan/courses/267/lectures/l3.pdf). Fixed-point lattice reasoning, EF least and EG greatest.
+3. Tim Willemse, TU Eindhoven 2019 [lecture2](https://timw.win.tue.nl/downloads/amc2019/lecture2.pdf). EX/EG/EU basis, finite iteration and symbolic/explicit distinction.
 4. [pyModelChecking models](https://pymodelchecking.readthedocs.io/en/latest/models.html). Total Kripke structures and infinite paths. Our paths are displayed by node sequences; transition count is sequence length minus one.
-5. [NuSMV2.1 tutorial](https://nusmv.fbk.eu/userman/v21/nusmv_2.html). Deadlock risk, fairness, AG EF versus AF and single-trace limitations for arbitrary CTL.
-6. [NuSMV1.1 fairness](https://nusmv.fbk.eu/userman/v11/html/nusmv_23.html). Fairness is an extra restriction of quantified paths, not assumed here.
-7. [NuSMV1.1 CTL syntax](https://nusmv.fbk.eu/userman/v11/html/nusmv_25.html). Operators and state-formula syntax; we implement bounded JSON AST rather than SMV text.
-8. [pyModelChecking1.3.4](https://pypi.org/project/pyModelChecking/) and [constructor/model-check usage](https://pymodelchecking.readthedocs.io/en/latest/using_logics.html). Separate installed reference, version, license, dependency and API grounding.
+5. [NuSMV 2.1 tutorial](https://nusmv.fbk.eu/userman/v21/nusmv_2.html). Deadlock risk, fairness, AG EF versus AF and single-trace limitations for arbitrary CTL.
+6. [NuSMV 1.1 fairness](https://nusmv.fbk.eu/userman/v11/html/nusmv_23.html). Fairness is an extra restriction of quantified paths, not assumed in the original mode.
+7. [NuSMV 1.1 CTL syntax](https://nusmv.fbk.eu/userman/v11/html/nusmv_25.html). Operators and state-formula syntax; we implement bounded JSON AST rather than SMV text.
+8. [pyModelChecking 1.3.4](https://pypi.org/project/pyModelChecking/) and [constructor/model-check usage](https://pymodelchecking.readthedocs.io/en/latest/using_logics.html). Separate installed reference, version, license, dependency and API grounding.
 
 Original controls, CTL code, subset-extremum replay and interface by this project. The author's AbsorbLab contributes strict JSON parsing, installed-wheel and Chrome readiness/download scaffolding. No external implementation, textbook diagram or real/private system data is reproduced. MIT project license does not relicense optional test packages.
